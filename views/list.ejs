@@ -7,6 +7,15 @@
 </head>
 <body>
     <h1> <%= kindOfDay %> </h1>
+    <ul>
+        <%for(let i=0; i<newListItems.length; i++){ %>
+            <li><%= newListItems[i] %></li>
+        <% } %>
+    </ul>
+    <form action="/" method="post">
+        <input id="newTask" type="text" name="newTask">
+        <button type="submit">Add Task</button>
+    </form>
     
 </body>
 </html>
