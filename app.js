@@ -9,7 +9,9 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}))
 
-let tasks = ["Make Dinner"];
+app.use(express.static("public"))
+
+let tasks = ["Make Dinner", "Clean the Kitchen"];
 
 app.get("/", function(req, res){
    let today = new Date();
