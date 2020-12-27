@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static("public"))
 
 let tasks = ["Make Dinner", "Clean the Kitchen"];
+let workTasks = []
 
 app.get("/", function(req, res){
    let today = new Date();
@@ -23,14 +24,34 @@ app.get("/", function(req, res){
 
    let day = today.toLocaleDateString("en-US", options);
 
-   res.render("list", {kindOfDay: day, newListItems: tasks})
+   res.render("list", {listTitle: day, newListItems: tasks})
 
 });
 
+app.get("/work", function(req,res){
+    res.render("list", {listTitle: "Work List", newListItems: workTasks})
+})
+
+app.get("/about", function(req, res){
+    res.render("about")
+})
+
 app.post("/", function(req, res){
     let task = req.body.newTask
-    tasks.push(task)
-    res.redirect("/")
+    if(req.body.list === "Work"){
+        workTasks.push(task)
+    }
+    else{
+        tasks.push(task)
+        res.redirect("/")
+    }
+
+})
+
+app.post("/work", function(req, res){
+    let task = req.body.newTask
+    workTasks.push(task)
+    res.redirect("/work")
 })
 
 app.listen(3000, function(){
